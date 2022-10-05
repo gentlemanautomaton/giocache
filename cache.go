@@ -29,13 +29,7 @@ type Cache struct {
 
 // New prepares a new operation cache.
 func New() *Cache {
-	c := &Cache{lookup: make(map[int]op.CallOp)}
-
-	// Preallocate some memory
-	c.ops.Write(4096)
-	c.ops.Reset()
-
-	return c
+	return &Cache{lookup: make(map[int]op.CallOp)}
 }
 
 // Context returns a graphical context for the cache with the given
@@ -97,9 +91,4 @@ func (c *Cache) Clear() {
 		delete(c.lookup, id)
 	}
 	c.ops.Reset()
-}
-
-// DataSize returns the number of bytes in the cache's data buffer.
-func (c *Cache) DataSize() int {
-	return len(c.ops.Data())
 }
